@@ -1,101 +1,78 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Results - FUTO Dept</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FUTO • Results</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: "Segoe UI", Arial, sans-serif;
-      margin: 0;
-      background: #f4f6f9;
-      color: #333;
+    :root {
+      --green: #0b7a3f;
+      --green-dark: #096735;
+      --light-bg: #f5f7fa;
+      --white: #ffffff;
+      --text-dark: #333333;
+      --muted: #6b7280;
     }
-    .navbar {
-      background: #1b4332;
-      padding: 1rem 2rem;
-      display: flex;
-      gap: 2rem;
-    }
-    .navbar a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-    .navbar a:hover, .navbar a.active {
-      color: #95d5b2;
-    }
-    .content {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 2rem;
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    }
-    h1 {
-      margin-bottom: 1.5rem;
-      color: #1b4332;
-      border-bottom: 2px solid #95d5b2;
-      padding-bottom: 0.5rem;
-    }
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-    li {
-      margin-bottom: 1.5rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid #eee;
-    }
-    li a {
-      color: #1b4332;
-      font-weight: bold;
-      text-decoration: none;
-    }
-    li a:hover {
-      text-decoration: underline;
-    }
-    li small {
-      color: #666;
-      font-size: 0.85rem;
-    }
-    footer {
-      text-align: center;
-      padding: 1rem;
-      background: #1b4332;
-      color: #fff;
-      margin-top: 3rem;
-    }
+    body { font-family:'Poppins',sans-serif; background:var(--light-bg); color:var(--text-dark); margin:0; }
+    header.header { background:var(--green); color:var(--white); padding:1rem 2rem; }
+    .header-inner { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; }
+    .brand { display:flex; align-items:center; gap:0.6rem; }
+    .crest { background:var(--white); color:var(--green); font-weight:bold; font-size:1.2rem; border-radius:50%; width:32px; height:32px; display:flex; align-items:center; justify-content:center; }
+    nav.site-nav a { color:var(--white); margin:0 0.6rem; text-decoration:none; font-weight:500; }
+    nav.site-nav a.active { border-bottom:2px solid var(--white); padding-bottom:2px; }
+    main.container { max-width:1100px; margin:2rem auto; padding:0 1rem; }
+    .card { background:var(--white); padding:1.5rem; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.08); margin-bottom:1.5rem; }
+    .card a { color:var(--green-dark); font-weight:600; text-decoration:none; }
+    .card a:hover { text-decoration:underline; }
+    .card small { color:var(--muted); font-size:0.85rem; }
+    footer.footer { background:var(--green-dark); color:var(--white); padding:2rem 1rem; margin-top:3rem; }
+    footer.footer div { display:flex; justify-content:space-between; align-items:center; max-width:1100px; margin:0 auto; }
   </style>
 </head>
 <body>
-  <nav class="navbar">
-    <a href="index.html">Home</a>
-    <a href="announcements.html">Announcements</a>
-    <a href="results.html" class="active">Results</a>
-    <a href="contact.html">Contact</a>
-  </nav>
+  <header class="header">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="crest">F</div>
+        <div>
+          <strong>FUTO</strong>
+          <div style="font-size:.82rem;color:rgba(255,255,255,.9)">Computer Science Dept</div>
+        </div>
+      </div>
+      <nav class="site-nav">
+        <a href="index.html">Home</a>
+        <a href="announcements.html">Announcements</a>
+        <a href="events.html">Events</a>
+        <a href="results.html" class="active">Results</a>
+        <a href="contact.html">Contact</a>
+        <a href="admin.html">Admin</a>
+      </nav>
+    </div>
+  </header>
 
-  <div class="content">
-    <h1>Results</h1>
-    <ul id="results-list"></ul>
-  </div>
+  <main class="container">
+    <h2>Published Results</h2>
+    <div id="results-list"></div>
+  </main>
 
-  <footer>
-    <p>© 2025 FUTO Dept Portal</p>
+  <footer class="footer">
+    <div>
+      <div>© 2025 FUTO</div>
+      <div>Contact: csdept@futo.edu.ng</div>
+    </div>
   </footer>
 
   <script>
     fetch("https://GROUP17.onrender.com/user/results")
       .then(res => res.json())
       .then(data => {
-        const list = document.getElementById("results-list");
-        list.innerHTML = data.map(r => `
-          <li>
+        const container = document.getElementById("results-list");
+        container.innerHTML = data.map(r => `
+          <div class="card">
             <a href="${r.file_path}" target="_blank">${r.filename}</a><br>
             <small>Uploaded: ${new Date(r.uploaded_at).toLocaleString()}</small>
-          </li>
+          </div>
         `).join("");
       })
       .catch(err => console.error("Error fetching results:", err));
