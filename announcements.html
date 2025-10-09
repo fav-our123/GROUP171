@@ -5,67 +5,71 @@
   <title>Announcements - FUTO Dept</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: "Segoe UI", Arial, sans-serif;
       margin: 0;
       background: #f4f6f9;
       color: #333;
     }
     .navbar {
-      background: #006400; /* dark green */
-      padding: 1rem;
+      background: #1b4332; /* deep green */
+      padding: 1rem 2rem;
       display: flex;
-      gap: 1.5rem;
+      gap: 2rem;
     }
     .navbar a {
       color: #fff;
       text-decoration: none;
-      font-weight: bold;
+      font-weight: 500;
+      transition: color 0.2s;
     }
-    .navbar a.active {
-      text-decoration: underline;
+    .navbar a:hover, .navbar a.active {
+      color: #95d5b2; /* soft green highlight */
     }
     .content {
       max-width: 900px;
       margin: 2rem auto;
       padding: 2rem;
       background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
     h1 {
-      margin-bottom: 1rem;
-      color: #006400;
+      margin-bottom: 1.5rem;
+      color: #1b4332;
+      border-bottom: 2px solid #95d5b2;
+      padding-bottom: 0.5rem;
     }
     ul {
       list-style: none;
       padding: 0;
     }
     li {
-      margin-bottom: 1rem;
-      padding: 1rem;
-      border-bottom: 1px solid #ddd;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #eee;
     }
     li h3 {
       margin: 0;
-      color: #006400;
+      color: #1b4332;
     }
     li p {
       margin: 0.5rem 0;
+      line-height: 1.5;
     }
     li small {
       color: #666;
+      font-size: 0.85rem;
     }
     footer {
       text-align: center;
       padding: 1rem;
-      background: #006400;
+      background: #1b4332;
       color: #fff;
-      margin-top: 2rem;
+      margin-top: 3rem;
     }
   </style>
 </head>
 <body>
-  <!-- Navbar -->
   <nav class="navbar">
     <a href="index.html">Home</a>
     <a href="announcements.html" class="active">Announcements</a>
@@ -73,13 +77,11 @@
     <a href="contact.html">Contact</a>
   </nav>
 
-  <!-- Content -->
   <div class="content">
     <h1>Latest Announcements</h1>
     <ul id="announcement-list"></ul>
   </div>
 
-  <!-- Footer -->
   <footer>
     <p>© 2025 FUTO Dept Portal</p>
   </footer>
