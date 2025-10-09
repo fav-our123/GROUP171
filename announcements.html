@@ -5,46 +5,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Announcements • FUTO Dept.</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
   <style>
+    :root {
+      --green: #0b7a3f;
+      --green-dark: #096735;
+      --light-bg: #f5f7fa;
+      --white: #ffffff;
+      --text-dark: #333333;
+      --accent: #ffb703;
+    }
     body {
       font-family: 'Poppins', sans-serif;
-      background: #f5f7fa;
-      color: #333;
+      background: var(--light-bg);
+      color: var(--text-dark);
       margin: 0;
       padding: 0;
     }
     header {
-      background: #0b3d91;
-      color: #fff;
+      background: var(--green);
+      color: var(--white);
       padding: 1rem 2rem;
       text-align: center;
     }
     main {
       max-width: 800px;
       margin: 2rem auto;
-      background: #fff;
+      background: var(--white);
       padding: 2rem;
       border-radius: 10px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
     footer {
-      background: #0b3d91;
-      color: #fff;
+      background: var(--green-dark);
+      color: var(--white);
       text-align: center;
       padding: 1rem;
       margin-top: 3rem;
     }
     .announcement {
       background: #fafafa;
-      border-left: 5px solid #0b3d91;
+      border-left: 5px solid var(--green);
       margin-top: 1rem;
       padding: 1rem;
       border-radius: 6px;
     }
     .announcement h3 {
       margin: 0;
-      color: #0b3d91;
+      color: var(--green);
     }
     .announcement p {
       margin: 0.5rem 0;
@@ -52,11 +59,23 @@
     small {
       color: #666;
     }
+    #refreshBtn {
+      margin-top: 1.5rem;
+      padding: 10px 15px;
+      background: var(--green);
+      color: var(--white);
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    #refreshBtn:hover {
+      background: var(--green-dark);
+    }
   </style>
 </head>
 
 <body>
-
   <header>
     <h1>FUTO Department of Computer Science</h1>
     <p>📢 Announcements Portal</p>
@@ -67,6 +86,7 @@
     <p style="color:#666;">Stay informed on the latest departmental updates, events, and notices.</p>
 
     <div id="announcementsList">Loading...</div>
+    <button id="refreshBtn">🔄 Refresh Announcements</button>
   </main>
 
   <footer>
@@ -74,12 +94,16 @@
   </footer>
 
   <script>
+    const container = document.getElementById("announcementsList");
+    const refreshBtn = document.getElementById("refreshBtn");
+
     async function loadAnnouncements() {
-      const container = document.getElementById("announcementsList");
       container.innerHTML = "Loading...";
 
       try {
-        const res = await fetch("http://localhost:5000/api/announcements");
+        const res = await fetch("https://group171.onrender.com/api/announcements");
+        if (!res.ok) throw new Error("Server error");
+
         const announcements = await res.json();
 
         if (!announcements.length) {
@@ -91,17 +115,23 @@
           <div class="announcement">
             <h3>${a.title}</h3>
             <p>${a.message}</p>
-            <small>📅 ${new Date(a.created_at).toLocaleString()}</small>
+            <small>📅 ${a.created_at ? new Date(a.created_at).toLocaleString() : ""}</small>
           </div>
         `).join('');
       } catch (err) {
         console.error(err);
-        container.innerHTML = "<p style='color:red;'>Failed to load announcements.</p>";
+        container.innerHTML = "<p style='color:red;'>⚠️ Failed to load announcements. Please try again later.</p>";
       }
     }
 
+    // Initial load
     loadAnnouncements();
-  </script>
 
+    // Manual refresh
+    refreshBtn.addEventListener("click", loadAnnouncements);
+
+    // Auto-refresh every 60 seconds
+    setInterval(loadAnnouncements, 60000);
+  </script>
 </body>
 </html>

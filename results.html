@@ -1,13 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Student Results</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Student Results • FUTO Dept.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body { font-family: Poppins, sans-serif; background:#eef5f0; color:#333; padding:2rem; }
-    h2 { color:#0b7a3f; }
-    .result-item { background:white; padding:1rem; border-radius:8px; margin:1rem 0; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
-    a { color:#0b7a3f; text-decoration:none; font-weight:600; }
+    :root {
+      --green: #0b7a3f;
+      --green-dark: #096735;
+      --light-bg: #eef5f0;
+      --white: #ffffff;
+      --text-dark: #333333;
+      --muted: #666666;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--light-bg);
+      color: var(--text-dark);
+      margin: 0;
+      padding: 2rem;
+    }
+    h2 {
+      color: var(--green);
+      margin-bottom: 1rem;
+    }
+    .result-item {
+      background: var(--white);
+      padding: 1rem;
+      border-radius: 8px;
+      margin: 1rem 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+    }
+    .result-item p {
+      margin: 0 0 0.5rem;
+      font-weight: 600;
+    }
+    .result-item a {
+      color: var(--green);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .result-item a:hover {
+      text-decoration: underline;
+    }
+    small {
+      color: var(--muted);
+    }
   </style>
 </head>
 <body>
@@ -18,7 +57,7 @@
     async function loadResults() {
       const container = document.getElementById("resultsContainer");
       try {
-        const res = await fetch("http://localhost:5000/user/results");
+        const res = await fetch("https://group171.onrender.com/user/results");
         const data = await res.json();
 
         if (!data.length) {
@@ -29,12 +68,13 @@
         container.innerHTML = data.map(r => `
           <div class="result-item">
             <p><strong>${r.filename}</strong></p>
-            <a href="http://localhost:5000${r.file_path}" target="_blank">📄 View Result</a>
+            <a href="https://group171.onrender.com${r.file_path}" target="_blank">📄 View Result</a>
             <div><small>Uploaded: ${new Date(r.uploaded_at).toLocaleString()}</small></div>
           </div>
         `).join("");
       } catch (err) {
-        container.innerHTML = "<p style='color:red'>Failed to load results.</p>";
+        console.error(err);
+        container.innerHTML = "<p style='color:red'>⚠️ Failed to load results. Please try again later.</p>";
       }
     }
 

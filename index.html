@@ -1,16 +1,139 @@
-<!-- public/index.html -->
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>FUTO • Dept Info</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --green: #0b7a3f;
+      --green-dark: #096735;
+      --light-bg: #f5f7fa;
+      --white: #ffffff;
+      --text-dark: #333333;
+      --muted: #6b7280;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--light-bg);
+      color: var(--text-dark);
+      margin: 0;
+      padding: 0;
+    }
+    header.header {
+      background: var(--green);
+      color: var(--white);
+      padding: 1rem 2rem;
+    }
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .crest {
+      background: var(--white);
+      color: var(--green);
+      font-weight: bold;
+      font-size: 1.2rem;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    nav.site-nav a {
+      color: var(--white);
+      margin: 0 0.6rem;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    nav.site-nav a.active {
+      border-bottom: 2px solid var(--white);
+      padding-bottom: 2px;
+    }
+    .header-utility {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .search-input {
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: none;
+      font-family: inherit;
+    }
+    main.container {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .quick-card {
+      background: var(--white);
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      text-decoration: none;
+      color: var(--text-dark);
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+    .quick-card:hover {
+      background: #eaf7ee;
+    }
+    .card {
+      background: var(--white);
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      margin-top: 2rem;
+    }
+    footer.footer {
+      background: var(--green-dark);
+      color: var(--white);
+      padding: 2rem 1rem;
+      margin-top: 3rem;
+    }
+    footer.footer div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+  </style>
 </head>
 <body>
   <header class="header">
     <div class="header-inner">
-      <div class="brand"><div class="crest">F</div><div><strong>FUTO</strong><div style="font-size:.82rem;color:rgba(255,255,255,.9)">Computer Science Dept</div></div></div>
+      <div class="brand">
+        <div class="crest">F</div>
+        <div>
+          <strong>FUTO</strong>
+          <div style="font-size:.82rem;color:rgba(255,255,255,.9)">Computer Science Dept</div>
+        </div>
+      </div>
       <nav id="siteNav" class="site-nav">
         <a href="index.html" class="active">Home</a>
         <a href="announcements.html">Announcements</a>
@@ -29,15 +152,35 @@
   <main class="container">
     <section class="hero">
       <div>
-        <h2>Welcome to the Departmental Student Portal</h2>
-        <p style="color:#6b7280">Official hub for announcements, events and published results.</p>
+        <h2>Welcome to the CSC Departmentaal Student Portal</h2>
+        <p style="color:var(--muted)">Official hub for announcements, events and published results.</p>
         <div class="quick-grid">
-          <a class="quick-card" href="announcements.html"><div>📢</div><div><strong>Announcements</strong><div style="font-size:.9rem;color:#6b7280">Latest notices</div></div></a>
-          <a class="quick-card" href="events.html"><div>📅</div><div><strong>Events</strong><div style="font-size:.9rem;color:#6b7280">Workshops & seminars</div></div></a>
-          <a class="quick-card" href="results.html"><div>📊</div><div><strong>Results</strong><div style="font-size:.9rem;color:#6b7280">Exam uploads</div></div></a>
+          <a class="quick-card" href="announcements.html">
+            <div>📢</div>
+            <div>
+              <strong>Announcements</strong>
+              <div style="font-size:.9rem;color:var(--muted)">Latest notices</div>
+            </div>
+          </a>
+          <a class="quick-card" href="events.html">
+            <div>📅</div>
+            <div>
+              <strong>Events</strong>
+              <div style="font-size:.9rem;color:var(--muted)">Workshops & seminars</div>
+            </div>
+          </a>
+          <a class="quick-card" href="results.html">
+            <div>📊</div>
+            <div>
+              <strong>Results</strong>
+              <div style="font-size:.9rem;color:var(--muted)">Exam uploads</div>
+            </div>
+          </a>
         </div>
       </div>
-      <div><img src="Federal-University-of-Technology-Owerri-logo (1).jpg" alt="campus" style="width:220px;border-radius:10px"></div>
+      <div>
+        <img src="Federal-University-of-Technology-Owerri-logo (1).jpg" alt="campus" style="width:220px;border-radius:10px">
+      </div>
     </section>
 
     <section class="card">
@@ -47,8 +190,9 @@
   </main>
 
   <footer class="footer">
-    <div style="max-width:1100px;margin:0 auto;padding:0 1rem">
-      <div style="display:flex;justify-content:space-between;align-items:center"><div>© 2025 FUTO</div><div>Contact: csdept@futo.edu.ng</div></div>
+    <div>
+      <div>© 2025 FUTO</div>
+      <div>Contact: csdept@futo.edu.ng</div>
     </div>
   </footer>
 
