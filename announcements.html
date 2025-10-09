@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Announcements • FUTO Dept.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f5f7fa;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #0b3d91;
+      color: #fff;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+    main {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    footer {
+      background: #0b3d91;
+      color: #fff;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 3rem;
+    }
+    .announcement {
+      background: #fafafa;
+      border-left: 5px solid #0b3d91;
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 6px;
+    }
+    .announcement h3 {
+      margin: 0;
+      color: #0b3d91;
+    }
+    .announcement p {
+      margin: 0.5rem 0;
+    }
+    small {
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>FUTO Department of Computer Science</h1>
+    <p>📢 Announcements Portal</p>
+  </header>
+
+  <main>
+    <h2>Latest Announcements</h2>
+    <p style="color:#666;">Stay informed on the latest departmental updates, events, and notices.</p>
+
+    <div id="announcementsList">Loading...</div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 FUTO Department of Computer Science. All rights reserved.</p>
+  </footer>
+
+  <script>
+    async function loadAnnouncements() {
+      const container = document.getElementById("announcementsList");
+      container.innerHTML = "Loading...";
+
+      try {
+        const res = await fetch("http://localhost:5000/api/announcements");
+        const announcements = await res.json();
+
+        if (!announcements.length) {
+          container.innerHTML = "<p>No announcements yet.</p>";
+          return;
+        }
+
+        container.innerHTML = announcements.map(a => `
+          <div class="announcement">
+            <h3>${a.title}</h3>
+            <p>${a.message}</p>
+            <small>📅 ${new Date(a.created_at).toLocaleString()}</small>
+          </div>
+        `).join('');
+      } catch (err) {
+        console.error(err);
+        container.innerHTML = "<p style='color:red;'>Failed to load announcements.</p>";
+      }
+    }
+
+    loadAnnouncements();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact • FUTO Dept.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-inner">
+      <div class="brand"><div class="crest">F</div><div><h1>FUTO • Dept. Info</h1><div style="font-size:0.82rem;color:rgba(255,255,255,0.9)">Contact</div></div></div>
+
+      <nav id="siteNav" class="site-nav">
+        <a href="index.html">Home</a>
+        <a href="announcements.html">Announcements</a>
+        <a href="events.html">Events</a>
+        <a href="results.html">Results</a>
+        <a href="contact.html" class="active">Contact</a>
+      </nav>
+
+      <div class="header-utility">
+        <input class="search-input" placeholder="Search..." aria-label="search site">
+        <button id="navToggle" class="header-btn" style="display:none">Menu</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="grid-2">
+      <div class="card">
+        <h2>Contact the Department</h2>
+        <p style="color:var(--muted)">Questions, suggestions, or concerns? Use the form and we'll respond within 2 working days.</p>
+
+        <form class="card" style="margin-top:1rem" action="#" method="POST">
+          <div class="form-row">
+            <div class="col"><input class="input" name="name" placeholder="Full name" required></div>
+            <div class="col"><input class="input" type="email" name="email" placeholder="Email address" required></div>
+          </div>
+
+          <div style="margin-bottom:0.8rem">
+            <input class="input" name="matric" placeholder="Matric number (optional)">
+          </div>
+
+          <div style="margin-bottom:0.8rem">
+            <textarea class="input" name="message" placeholder="Your message..." required></textarea>
+          </div>
+
+          <div style="display:flex;gap:0.6rem;align-items:center">
+            <button class="btn" type="submit">Send Message</button>
+            <button type="reset" class="btn-ghost">Reset</button>
+          </div>
+        </form>
+      </div>
+
+      <aside>
+        <div class="card">
+          <h3>Department Office</h3>
+          <p style="color:var(--muted)">Block A, Faculty Building • Room 12</p>
+          <p style="margin-top:0.6rem"><strong>Email:</strong> csdept@futo.edu.ng<br><strong>Phone:</strong> +234 800 123 4567</p>
+        </div>
+
+        <div class="card" style="margin-top:0.8rem">
+          <h3>Office Hours</h3>
+          <p style="color:var(--muted)">Mon - Fri: 8:00 AM - 4:00 PM</p>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div><h4>About</h4><p style="color:#dff7df">Reach the Department office for student services</p></div>
+      <div><h4>Quick</h4><a href="announcements.html">Announcements</a><a href="results.html">Results</a></div>
+      <div><h4>Contact</h4><a href="mailto:csdept@futo.edu.ng">csdept@futo.edu.ng</a></div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

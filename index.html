@@ -1,0 +1,57 @@
+<!-- public/index.html -->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FUTO • Dept Info</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <div class="brand"><div class="crest">F</div><div><strong>FUTO</strong><div style="font-size:.82rem;color:rgba(255,255,255,.9)">Computer Science Dept</div></div></div>
+      <nav id="siteNav" class="site-nav">
+        <a href="index.html" class="active">Home</a>
+        <a href="announcements.html">Announcements</a>
+        <a href="events.html">Events</a>
+        <a href="results.html">Results</a>
+        <a href="contact.html">Contact</a>
+        <a href="admin.html">Admin</a>
+      </nav>
+      <div class="header-utility">
+        <input class="search-input" placeholder="Search site...">
+        <button id="navToggle" class="btn" style="display:none">Menu</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <h2>Welcome to the Departmental Student Portal</h2>
+        <p style="color:#6b7280">Official hub for announcements, events and published results.</p>
+        <div class="quick-grid">
+          <a class="quick-card" href="announcements.html"><div>📢</div><div><strong>Announcements</strong><div style="font-size:.9rem;color:#6b7280">Latest notices</div></div></a>
+          <a class="quick-card" href="events.html"><div>📅</div><div><strong>Events</strong><div style="font-size:.9rem;color:#6b7280">Workshops & seminars</div></div></a>
+          <a class="quick-card" href="results.html"><div>📊</div><div><strong>Results</strong><div style="font-size:.9rem;color:#6b7280">Exam uploads</div></div></a>
+        </div>
+      </div>
+      <div><img src="Federal-University-of-Technology-Owerri-logo (1).jpg" alt="campus" style="width:220px;border-radius:10px"></div>
+    </section>
+
+    <section class="card">
+      <h3>Latest Update</h3>
+      <p>Mid-semester dates are out — view them on the announcements page.</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div style="max-width:1100px;margin:0 auto;padding:0 1rem">
+      <div style="display:flex;justify-content:space-between;align-items:center"><div>© 2025 FUTO</div><div>Contact: csdept@futo.edu.ng</div></div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
