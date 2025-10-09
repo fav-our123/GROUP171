@@ -1,84 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Student Results • FUTO Dept.</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Results - FUTO Dept</title>
   <style>
-    :root {
-      --green: #0b7a3f;
-      --green-dark: #096735;
-      --light-bg: #eef5f0;
-      --white: #ffffff;
-      --text-dark: #333333;
-      --muted: #666666;
-    }
     body {
-      font-family: 'Poppins', sans-serif;
-      background: var(--light-bg);
-      color: var(--text-dark);
+      font-family: Arial, sans-serif;
       margin: 0;
-      padding: 2rem;
+      background: #f4f6f9;
+      color: #333;
     }
-    h2 {
-      color: var(--green);
-      margin-bottom: 1rem;
-    }
-    .result-item {
-      background: var(--white);
+    .navbar {
+      background: #004080;
       padding: 1rem;
-      border-radius: 8px;
-      margin: 1rem 0;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+      display: flex;
+      gap: 1.5rem;
     }
-    .result-item p {
-      margin: 0 0 0.5rem;
-      font-weight: 600;
-    }
-    .result-item a {
-      color: var(--green);
+    .navbar a {
+      color: #fff;
       text-decoration: none;
-      font-weight: 600;
+      font-weight: bold;
     }
-    .result-item a:hover {
+    .navbar a.active {
       text-decoration: underline;
     }
-    small {
-      color: var(--muted);
+    .content {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    h1 {
+      margin-bottom: 1rem;
+      color: #004080;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      margin-bottom: 1rem;
+      padding: 1rem;
+      border-bottom: 1px solid #ddd;
+    }
+    li a {
+      color: #004080;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    li small {
+      color: #666;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #004080;
+      color: #fff;
+      margin-top: 2rem;
     }
   </style>
 </head>
 <body>
-  <h2>📘 Department Results</h2>
-  <div id="resultsContainer">Loading results...</div>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="index.html">Home</a>
+    <a href="announcements.html">Announcements</a>
+    <a href="results.html" class="active">Results</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <!-- Content -->
+  <div class="content">
+    <h1>Results</h1>
+    <ul id="results-list"></ul>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 FUTO Dept Portal</p>
+  </footer>
 
   <script>
-    async function loadResults() {
-      const container = document.getElementById("resultsContainer");
-      try {
-        const res = await fetch("https://group171.onrender.com/user/results");
-        const data = await res.json();
-
-        if (!data.length) {
-          container.innerHTML = "<p>No results available yet.</p>";
-          return;
-        }
-
-        container.innerHTML = data.map(r => `
-          <div class="result-item">
-            <p><strong>${r.filename}</strong></p>
-            <a href="https://group171.onrender.com${r.file_path}" target="_blank">📄 View Result</a>
-            <div><small>Uploaded: ${new Date(r.uploaded_at).toLocaleString()}</small></div>
-          </div>
+    fetch("https://your-backend.onrender.com/user/results")
+      .then(res => res.json())
+      .then(data => {
+        const list = document.getElementById("results-list");
+        list.innerHTML = data.map(r => `
+          <li>
+            <a href="${r.file_path}" target="_blank">${r.filename}</a><br>
+            <small>Uploaded: ${new Date(r.uploaded_at).toLocaleString()}</small>
+          </li>
         `).join("");
-      } catch (err) {
-        console.error(err);
-        container.innerHTML = "<p style='color:red'>⚠️ Failed to load results. Please try again later.</p>";
-      }
-    }
-
-    loadResults();
+      })
+      .catch(err => console.error("Error fetching results:", err));
   </script>
 </body>
 </html>
