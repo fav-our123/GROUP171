@@ -4,7 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>FUTO • Dept Info</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet"
+/>
   <style>
     :root {
       --green: #0b7a3f;
@@ -15,7 +20,7 @@
       --muted: #6b7280;
     }
     body {
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Inter', sans-serif;
       background: var(--light-bg);
       color: var(--text-dark);
       margin: 0;
@@ -31,34 +36,36 @@
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
+      max-width: 1100px;
+  margin: 0 auto;
     }
     .brand {
       display: flex;
       align-items: center;
       gap: 0.6rem;
     }
-    .crest {
-      background: var(--white);
-      color: var(--green);
-      font-weight: bold;
-      font-size: 1.2rem;
-      border-radius: 50%;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
     nav.site-nav a {
-      color: var(--white);
-      margin: 0 0.6rem;
-      text-decoration: none;
-      font-weight: 500;
+    color: var(--white); 
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    background-color: transparent;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+    nav.site-nav a:hover {
+      opacity: 0.85;
     }
     nav.site-nav a.active {
       border-bottom: 2px solid var(--white);
       padding-bottom: 2px;
+      transition: border-bottom-color 0.3s ease;
     }
+    nav.site-nav a.active:hover {
+    border-bottom-color: rgba(255, 255, 255, 0.6);
+  }
     .header-utility {
       display: flex;
       align-items: center;
@@ -67,14 +74,118 @@
     .search-input {
       padding: 8px 12px;
       border-radius: 6px;
-      border: none;
+      border: 1px solid var(--light-bg);
       font-family: inherit;
+      width: 180px; 
+    transition: all 0.2s ease-in-out;
     }
+    .full-width-slider {
+      width: 100%;
+    height: 400px;
+    position: relative;
+    overflow: hidden;
+  }
+  .slider-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0; 
+    transition: opacity 1s ease-in-out; 
+}
+.slider-image:first-child {
+    opacity: 1;
+}
+.ticker-wrapper {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    color: var(--white);
+    padding: 0.5rem 0;
+    font-size: 1rem;
+    overflow: hidden; 
+    z-index: 10;
+}
+.ticker-message {
+    white-space: nowrap;
+    animation: scroll-left 25s linear infinite;
+}
+@keyframes scroll-left {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+    .search-input:focus {
+    outline: none; 
+    border-color: var(--green); 
+    box-shadow: 0 0 0 3px rgba(11, 122, 63, 0.2); 
+  }
     main.container {
       max-width: 1100px;
       margin: 2rem auto;
       padding: 0 1rem;
     }
+.data-section {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e0e0e0;
+}
+
+.data-section-title {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.data-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.data-tile {
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1); 
+    border-left: 5px solid var(--green); 
+    transition: transform 0.2s ease;
+}
+
+.data-tile:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.data-label {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+}
+
+.data-value {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin: 0.2rem 0;
+}
+
+.data-subtext {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--muted);
+}
+
+.data-tile-highlight {
+    border-left: 5px solid #2563eb;
+}
     .hero {
       display: flex;
       justify-content: space-between;
@@ -92,23 +203,55 @@
       background: var(--white);
       padding: 1rem;
       border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
       text-decoration: none;
       color: var(--text-dark);
       display: flex;
       gap: 1rem;
       align-items: center;
+      transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
     }
     .quick-card:hover {
       background: #eaf7ee;
+      transform: translateY(-2px); 
+    box-shadow: 0 6px 10px rgba(0,0,0,0.15);
     }
     .card {
       background: var(--white);
       padding: 1.5rem;
       border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-      margin-top: 2rem;
+      box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1); 
+  margin-top: 2rem;
     }
+    .map-button-container {
+    margin: 3rem auto 0; 
+    padding: 0 1rem;
+    max-width: 1100px;
+    text-align: center;
+}
+
+.map-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    
+    background-color: var(--green);
+    color: var(--white);
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    
+    box-shadow: 0 4px 6px rgba(0,0,0,0.15); 
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.map-button:hover {
+    background-color: var(--green-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0,0,0,0.25);
+}
     footer.footer {
       background: var(--green-dark);
       color: var(--white);
@@ -128,7 +271,7 @@
   <header class="header">
     <div class="header-inner">
       <div class="brand">
-        <div class="crest">F</div>
+        <img src="futo-logo.png" alt="FUTO Logo" style="height: 32px; width: 32px; border-radius: 50%;"> 
         <div>
           <strong>FUTO</strong>
           <div style="font-size:.82rem;color:rgba(255,255,255,.9)">Computer Science Dept</div>
@@ -148,54 +291,119 @@
       </div>
     </div>
   </header>
-
+  <section class="full-width-slider">
+      <img src="slide1.jpg" alt="Group members together" class="slider-image">
+      <img src="slide2.jpg" alt="Group leader" class="slider-image">
+      <img src="slide3.jpg" alt="Picture of Potato" class="slider-image">
+      
+      <div class="ticker-wrapper">
+        <div class="ticker-message">
+          <span>
+              *** IMPORTANT ANNOUNCEMENT: Mid-Semester Exams have been postponed. Check the Announcements Page for details. *** | 
+              *** NEW FACULTY HIRING: Submit applications by end of month. *** | 
+          </span>
+          <span>
+              *** IMPORTANT ANNOUNCEMENT: Mid-Semester Exams have been postponed. Check the Announcements Page for details. *** | 
+              *** NEW FACULTY HIRING: Submit applications by end of month. *** | 
+          </span>
+      </div>
+  </section>
   <main class="container">
-    <section class="hero">
-      <div>
+    <div>
         <h2>Welcome to the Computer Science Student Portal</h2>
         <p style="color:var(--muted)">Official hub for announcements, events and published results.</p>
-        <div class="quick-grid">
-          <a class="quick-card" href="announcements.html">
+    </div>
+
+    <div class="quick-grid">
+        <a class="quick-card" href="announcements.html">
             <div>📢</div>
             <div>
-              <strong>Announcements</strong>
-              <div style="font-size:.9rem;color:var(--muted)">Latest notices</div>
+                <strong>Announcements</strong>
+                <div style="font-size:.9rem;color:var(--muted)">Latest notices</div>
             </div>
-          </a>
-          <a class="quick-card" href="events.html">
+        </a>
+        <a class="quick-card" href="events.html">
             <div>📅</div>
             <div>
-              <strong>Events</strong>
-              <div style="font-size:.9rem;color:var(--muted)">Workshops & seminars</div>
+                <strong>Events</strong>
+                <div style="font-size:.9rem;color:var(--muted)">Workshops & seminars</div>
             </div>
-          </a>
-          <a class="quick-card" href="results.html">
+        </a>
+        <a class="quick-card" href="results.html">
             <div>📊</div>
             <div>
-              <strong>Results</strong>
-              <div style="font-size:.9rem;color:var(--muted)">Exam uploads</div>
+                <strong>Results</strong>
+                <div style="font-size:.9rem;color:var(--muted)">Exam uploads</div>
             </div>
-          </a>
-        </div>
-      </div>
-      <div>
-        <img src="Federal-University-of-Technology-Owerri-logo (1).jpg" width="100" height="100">
-      </div>
-    </section>   
-
+        </a>
+    </div>
+    
     <section class="card">
-      <h3>Latest Update</h3>
-      <p>Mid-semester dates are out — view them on the announcements page.</p>
-    </section>
-  </main>
+        <h3>Latest Update</h3>
+        <p>Mid-semester dates are out — view them on the announcements page.</p>
+      </section>
 
+      <section class="data-section">
+          <h3 class="data-section-title">Key Departmental Data</h3>
+          
+          <div class="data-grid">
+              <div class="data-tile">
+                  <p class="data-label">FUTO Budget Allocation</p>
+                  <strong class="data-value">₦42.5M</strong>
+                  <p class="data-subtext">Operating Budget (2025)</p>
+              </div>
+      
+              <div class="data-tile">
+                  <p class="data-label">TETFund Allocation</p>
+                  <strong class="data-value">₦15.8M</strong>
+                  <p class="data-subtext">Research & Infrastructure</p>
+              </div>
+      
+              <div class="data-tile data-tile-highlight">
+                  <p class="data-label">CIT 306 Allocation</p>
+                  <strong class="data-value">100%</strong>
+                  <p class="data-subtext">Course Completion Rate</p>
+              </div>
+          </div>
+      </section>
+      </main>
+  </main>
+  <section class="map-button-container">
+    <a href="https://maps.app.goo.gl/iKVB8XJ5jHqNNkGD7" target="_blank" class="map-button">
+        <span style="margin-right: 0.5rem;">📍</span>
+        Location: CSC Building
+    </a>
+</section>
   <footer class="footer">
     <div>
       <div>© 2025 FUTO</div>
       <div>Contact: csdept@futo.edu.ng</div>
     </div>
   </footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const slides = document.querySelectorAll('.full-width-slider .slider-image');
+    let currentSlide = 0;
+    const slideInterval = 6000;
+    function showSlide(index) {
+        slides.forEach(slide => {
+            slide.style.opacity = 0;
+        });
+        
+        if (slides[index]) {
+            slides[index].style.opacity = 1;
+        }
+    }
 
-  <script src="script.js"></script>
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+    }
+
+    setInterval(nextSlide, slideInterval);
+
+    showSlide(currentSlide);
+});
+  </script>
 </body>
 </html>
