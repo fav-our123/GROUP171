@@ -67,7 +67,7 @@
   </div>
 
   <script>
-    const API_BASE = "https://group17.onrender.com";
+    const API_BASE = "https://group171.onrender.com";
 
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -88,10 +88,7 @@
         if (res.ok && data.token) {
           loginMsg.textContent = "✅ Login successful!";
           loginMsg.className = "message success";
-
-          // Save token for later use
           localStorage.setItem('adminToken', data.token);
-
           setTimeout(() => {
             window.location.href = "admin-dashboard.html";
           }, 1000);
