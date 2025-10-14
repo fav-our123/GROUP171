@@ -22,6 +22,20 @@
       background: #096735;
       padding: 1rem;
       text-align: center;
+      position: relative;
+    }
+    header h1 { margin: 0; }
+    #logoutBtn {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      background:#e63946;
+      padding:6px 12px;
+      border-radius:6px;
+      border:none;
+      cursor:pointer;
+      color:white;
+      font-weight:600;
     }
     main {
       flex: 1;
@@ -57,7 +71,7 @@
 <body>
   <header>
     <h1>Welcome to FUTO Admin Dashboard</h1>
-    <button id="logoutBtn" style="float:right; background:#e63946; margin-top:-2.5rem; padding:6px 12px; border-radius:6px; border:none; cursor:pointer;">Logout</button>
+    <button id="logoutBtn">Logout</button>
   </header>
 
   <main>
@@ -86,7 +100,7 @@
   </footer>
 
   <script>
-    const API_BASE = "https://group171.onrender.com";
+    const API_BASE = "https://group17.onrender.com";
     const token = localStorage.getItem("adminToken");
 
     // 🔐 Redirect if not logged in
@@ -118,7 +132,7 @@
       msgBox.style.color = "orange";
 
       try {
-        const res = await fetch(`${API_BASE}/admin/announcement`, {
+        const res = await fetch(`${API_BASE}/api/announcements`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -128,7 +142,7 @@
         });
 
         const data = await res.json();
-        if (res.ok) {
+        if (res.ok && data.success) {
           msgBox.textContent = data.message || "✅ Announcement posted!";
           msgBox.style.color = "green";
           e.target.reset();
@@ -157,23 +171,21 @@
       }
 
       const formData = new FormData();
-      formData.append("resultFile", file);
+      formData.append("file", file); // must match backend's `upload.single("file")`
 
       msg.textContent = "Uploading...";
       msg.style.color = "orange";
 
       try {
-        const res = await fetch(`${API_BASE}/admin/upload-result`, {
+        const res = await fetch(`${API_BASE}/api/results/pdf`, {
           method: "POST",
-          headers: {
-            "Authorization": `Bearer ${token}`
-          },
+          headers: { "Authorization": `Bearer ${token}` },
           body: formData
         });
 
         const data = await res.json();
-        if (res.ok) {
-          msg.textContent = "✅ Result uploaded successfully!";
+        if (res.ok && data.success) {
+          msg.textContent = data.message || "✅ Result uploaded successfully!";
           msg.style.color = "green";
           e.target.reset();
         } else {
