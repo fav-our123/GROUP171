@@ -1,193 +1,321 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Events • FUTO Dept.</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --green: #0b7a3f;
-      --green-dark: #096735;
-      --light-bg: #f5f7fa;
-      --white: #ffffff;
-      --text-dark: #333333;
-      --muted: #666666;
-    }
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: var(--light-bg);
-      color: var(--text-dark);
-      margin: 0;
-      padding: 0;
-    }
-    header.header {
-      background: var(--green);
-      color: var(--white);
-      padding: 1rem 2rem;
-    }
-    .header-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-    .brand .crest {
-      background: var(--white);
-      color: var(--green);
-      font-weight: bold;
-      font-size: 1.2rem;
-      border-radius: 50%;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    nav.site-nav a {
-      color: var(--white);
-      margin: 0 0.6rem;
-      text-decoration: none;
-      font-weight: 500;
-    }
-    nav.site-nav a.active {
-      border-bottom: 2px solid var(--white);
-      padding-bottom: 2px;
-    }
-    main.container {
-      max-width: 900px;
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>FUTO • Events</title>
+ <link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+ rel="stylesheet"
+/>
+<style>
+	:root {
+		 --green: #0b7a3f;
+		 --green-dark: #096735;
+		 --light-bg: #f5f7fa;
+		 --white: #ffffff;
+		 --text-dark: #333333;
+		 --muted: #6b7280;
+	   }
+	body {
+		 font-family: 'Inter', sans-serif;
+		 background: var(--light-bg);
+		 color: var(--text-dark);
+		 margin: 0;
+		 padding: 0;
+	   }
+	header.header {
+		 background: var(--green);
+		 color: var(--white);
+		 padding: 1rem 2rem;
+	   }
+	   .header-inner {
+		 display: flex;
+		 justify-content: space-between;
+		 align-items: center;
+		 flex-wrap: wrap;
+		 max-width: 1100px;
+	 margin: 0 auto;
+	   }
+	   .brand {
+		 display: flex;
+		 align-items: center;
+		 gap: 0.6rem;
+	   }
+	nav.site-nav a {
+	   color: var(--white); 
+	   text-decoration: none;
+	   font-weight: 500;
+	   font-size: 1rem;
+	   padding: 0.5rem 1rem;
+	   border-radius: 4px;
+	   background-color: transparent;
+	   transition: all 0.2s ease;
+	   border: 1px solid transparent;
+   }
+	 nav.site-nav a:hover {
+		 opacity: 0.85;
+	   }
+	   nav.site-nav a.active {
+		 border-bottom: 2px solid var(--white);
+		 padding-bottom: 2px;
+		 transition: border-bottom-color 0.3s ease;
+	   }
+	   nav.site-nav a.active:hover {
+	   border-bottom-color: rgba(255, 255, 255, 0.6);
+	 }
+	   .header-utility {
+		 display: flex;
+		 align-items: center;
+		 gap: 0.6rem;
+	   }
+	   .search-input {
+		 padding: 8px 12px;
+		 border-radius: 6px;
+		 border: 1px solid var(--light-bg);
+		 font-family: inherit;
+		 width: 180px; 
+	   transition: all 0.2s ease-in-out;
+	   }
+	   main.container {
+      max-width: 1100px;
       margin: 2rem auto;
       padding: 0 1rem;
     }
-    .card {
+ .card {
       background: var(--white);
       padding: 1.5rem;
       border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1); 
+  margin-top: 2rem;
     }
-    .item {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      padding: 0.8rem 0;
-      border-bottom: 1px solid #eee;
-    }
-    .item:last-child { border-bottom: none; }
-    .tag {
-      background: var(--green);
-      color: var(--white);
-      font-weight: 600;
-      padding: 0.5rem 0.8rem;
-      border-radius: 6px;
-      min-width: 60px;
-      text-align: center;
-    }
-    .item strong {
-      font-size: 1rem;
-      color: var(--text-dark);
-    }
-    .item div div {
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-    footer.footer {
+  footer.footer {
       background: var(--green-dark);
       color: var(--white);
-      padding: 2rem;
+      padding: 2rem 1rem;
       margin-top: 3rem;
     }
-    .footer-inner {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
-      gap: 1rem;
+    footer.footer div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
     }
-    .footer-inner a {
-      display: block;
-      color: #dff7df;
-      text-decoration: none;
-      margin-top: 0.4rem;
+
+	.event-list {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 2rem;
+		margin-top: 2rem;
+	}
+
+	.event-card {
+		background: var(--white);
+		border-radius: 10px;
+		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		overflow: hidden;
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+	}
+
+	.event-card:hover {
+		transform: translateY(-5px);
+		box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+	}
+
+	.event-date-box {
+		background-color: var(--green);
+		color: var(--white);
+		padding: 1rem;
+		text-align: center;
+		font-weight: 700;
+		font-size: 1.5rem;
+	}
+
+	.event-date-box .month {
+		font-size: 0.9rem;
+		font-weight: 500;
+		display: block;
+	}
+
+	.event-info {
+		padding: 1.5rem;
+	}
+
+	.event-info h3 {
+		font-size: 1.4rem;
+		margin-top: 0;
+		color: var(--text-dark);
+	}
+
+	.event-meta {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		font-size: 0.9rem;
+		color: var(--muted);
+		margin-bottom: 1rem;
+	}
+
+	.event-meta span {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+	
+	.event-meta .icon {
+		color: var(--blue);
+		font-size: 1.1rem;
+	}
+
+	.event-tag {
+		display: inline-block;
+		background-color: #e6f0ff;
+		color: var(--blue);
+		padding: 0.3rem 0.6rem;
+		border-radius: 4px;
+		font-size: 0.75rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		margin-top: 0.5rem;
+	}
+	
+	.event-register-btn {
+		display: inline-block;
+		background-color: var(--blue);
+		color: var(--white);
+		padding: 0.75rem 1.5rem;
+		border-radius: 6px;
+		margin-top: 1rem;
+		font-weight: 600;
+		transition: background-color 0.2s ease;
+	}
+
+	.event-register-btn:hover {
+		background-color: #1a4fbf; 
+	}
+	@media (max-width: 768px) {
+        
+        .site-nav {
+            width: 100%;
+            justify-content: flex-start;
+        }
+       
+        .search-input {
+            width: 100%;
+        }
+                .content-layout {
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .sidebar {
+            order: -1; 
+            min-width: 100%;
+        }
+        .announcement-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .announcement-meta {
+            text-align: left;
+            margin-top: 0.25rem;
+        }
     }
-    .footer-inner h4 {
-      margin-bottom: 0.5rem;
-    }
-  </style>
+ </style>
 </head>
 <body>
-
-  <header class="header">
-    <div class="header-inner">
-      <div class="brand">
-        <div class="crest">F</div>
-        <div>
-          <h1 style="margin:0;font-size:1.2rem;">FUTO • Dept. Info</h1>
-          <div style="font-size:0.82rem;color:rgba(255,255,255,0.9)">Events</div>
-        </div>
-      </div>
-
-      <nav id="siteNav" class="site-nav">
-        <a href="index.html">Home</a>
-        <a href="announcements.html">Announcements</a>
-        <a href="events.html" class="active">Events</a>
-        <a href="results.html">Results</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-    </div>
-  </header>
-
-  <main class="container">
-    <div class="card">
-      <h2>Upcoming Events</h2>
-
-      <div style="margin-top:1rem">
-        <div class="item">
-          <div class="tag">Oct 15</div>
-          <div>
-            <strong>Tech Symposium</strong>
-            <div>AI, Data Science talks — Main Auditorium</div>
+    <header class="header">
+        <div class="header-inner">
+          <div class="brand">
+            <img src="futo-logo.png" alt="FUTO Logo" style="height: 32px; width: 32px; border-radius: 50%;"> 
+            <div>
+              <strong>FUTO</strong>
+              <div style="font-size:.82rem;color:rgba(255,255,255,.9)">Computer Science Dept</div>
+            </div>
+          </div>
+          <nav id="siteNav" class="site-nav">
+            <a href="index.html">Home</a>
+            <a href="announcements.html">Announcements</a>
+            <a href="events.html" class="active">Events</a>
+            <a href="results.html">Results</a>
+            <a href="contact.html">Contact</a>
+            <a href="admin.html">Admin</a>
+          </nav>
+          <div class="header-utility">
+            <input class="search-input" placeholder="Search site...">
+            <button id="navToggle" class="btn" style="display:none">Menu</button>
           </div>
         </div>
-
-        <div class="item">
-          <div class="tag">Nov 02</div>
-          <div>
-            <strong>Sports Festival</strong>
-            <div>Inter-departmental sports — Fields</div>
-          </div>
+      </header>
+ <main class="container">
+ <h2>Upcoming Departmental Events 🗓</h2>
+ <p style="color:var(--muted)">Check out the seminars, workshops, and competitions happening this semester.</p>
+    <div class="event-list">
+                <div class="event-card">
+            <div class="event-date-box">
+                25 <span class="month">NOV</span>
+            </div>
+            <div class="event-info">
+                <span class="event-tag">Seminar</span>
+                <h3>Deep Learning Applications in Cybersecurity</h3>
+                <div class="event-meta">
+                    <!-- Icon placeholder: Time -->
+                    <span><span class="icon">🕒</span> 10:00 AM - 12:00 PM</span>
+                    <!-- Icon placeholder: Location -->
+                    <span><span class="icon">📍</span> Lecture Hall B, Ground Floor</span>
+                </div>
+                <p style="font-size: 0.95rem;">A deep dive into advanced techniques for intrusion detection and threat modeling using neural networks, led by Prof. T. Kalu.</p>
+                <a href="#" class="event-register-btn">View Details & RSVP</a>
+            </div>
+        </div>
+        <div class="event-card">
+            <div class="event-date-box" style="background-color: var(--blue);">
+                03 <span class="month">DEC</span>
+            </div>
+            <div class="event-info">
+                <span class="event-tag" style="background-color: #e3f8e6; color: var(--green-dark);">Workshop</span>
+                <h3>Hands-on Introduction to Docker and Kubernetes</h3>
+                <div class="event-meta">
+                    <!-- Icon placeholder: Time -->
+                    <span><span class="icon">🕒</span> 1:00 PM - 4:00 PM</span>
+                    <!-- Icon placeholder: Location -->
+                    <span><span class="icon">📍</span> Computer Lab 2, First Floor</span>
+                </div>
+                <p style="font-size: 0.95rem;">Learn the fundamentals of containerization and orchestration. Bring your own laptop (BYOL). Limited spaces available.</p>
+                <a href="#" class="event-register-btn" style="background-color: var(--green-dark);">Register Now</a>
+            </div>
+        </div>
+        <div class="event-card">
+            <div class="event-date-box">
+                15 <span class="month">DEC</span>
+            </div>
+            <div class="event-info">
+                <span class="event-tag">Competition</span>
+                <h3>Annual FUTO Code Challenge (Finals)</h3>
+                <div class="event-meta">
+                    <!-- Icon placeholder: Time -->
+                    <span><span class="icon">🕒</span> All Day</span>
+                    <!-- Icon placeholder: Location -->
+                    <span><span class="icon">📍</span> Smat Auditorium</span>
+                </div>
+                <p style="font-size: 0.95rem;">The final round of the inter-departmental coding competition. Support your peers! Prizes for the top 3 teams.</p>
+                <a href="#" class="event-register-btn">Sponsor This Event</a>
+            </div>
         </div>
 
-        <div class="item">
-          <div class="tag">Dec 12</div>
-          <div>
-            <strong>End-of-Sem Party</strong>
-            <div>Venue: Student Centre</div>
-          </div>
-        </div>
-      </div>
     </div>
-  </main>
-
-  <footer class="footer">
-    <div class="footer-inner">
-      <div>
-        <h4>About</h4>
-        <p style="color:#dff7df">Department Events & calendars</p>
-      </div>
-      <div>
-        <h4>Quick</h4>
-        <a href="announcements.html">Announcements</a>
-        <a href="results.html">Results</a>
-      </div>
-      <div>
-        <h4>Contact</h4>
-        <a href="mailto:events@futo.edu.ng">events@futo.edu.ng</a>
-      </div>
+    <div style="text-align: center; margin-top: 3rem;">
+        <a href="#" style="font-weight: 600; padding: 0.5rem 1rem;">View Full Calendar →</a>
     </div>
-  </footer>
 
+ </main>
+   <footer class="footer" style="background: #096735;">
+ <div>
+ <div>© 2025 FUTO</div>
+ <div>Contact: csdept@futo.edu.ng</div>
+ </div>
+ </footer>
 </body>
 </html>

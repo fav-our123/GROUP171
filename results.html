@@ -1,81 +1,414 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>FUTO • Results</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --green: #0b7a3f;
-      --green-dark: #096735;
-      --light-bg: #f5f7fa;
-      --white: #ffffff;
-      --text-dark: #333333;
-      --muted: #6b7280;
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>FUTO • Events</title>
+ <link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+ rel="stylesheet"
+/>
+<style>
+	:root {
+		 --green: #0b7a3f;
+		 --green-dark: #096735;
+		 --light-bg: #f5f7fa;
+		 --white: #ffffff;
+		 --text-dark: #333333;
+		 --muted: #6b7280;
+	   }
+	body {
+		 font-family: 'Inter', sans-serif;
+		 background: var(--light-bg);
+		 color: var(--text-dark);
+		 margin: 0;
+		 padding: 0;
+	   }
+	header.header {
+		 background: var(--green);
+		 color: var(--white);
+		 padding: 1rem 2rem;
+	   }
+	   .header-inner {
+		 display: flex;
+		 justify-content: space-between;
+		 align-items: center;
+		 flex-wrap: wrap;
+		 max-width: 1100px;
+	 margin: 0 auto;
+	   }
+	   .brand {
+		 display: flex;
+		 align-items: center;
+		 gap: 0.6rem;
+	   }
+	nav.site-nav a {
+	   color: var(--white); 
+	   text-decoration: none;
+	   font-weight: 500;
+	   font-size: 1rem;
+	   padding: 0.5rem 1rem;
+	   border-radius: 4px;
+	   background-color: transparent;
+	   transition: all 0.2s ease;
+	   border: 1px solid transparent;
+   }
+	 nav.site-nav a:hover {
+		 opacity: 0.85;
+	   }
+	   nav.site-nav a.active {
+		 border-bottom: 2px solid var(--white);
+		 padding-bottom: 2px;
+		 transition: border-bottom-color 0.3s ease;
+	   }
+	   nav.site-nav a.active:hover {
+	   border-bottom-color: rgba(255, 255, 255, 0.6);
+	 }
+	   .header-utility {
+		 display: flex;
+		 align-items: center;
+		 gap: 0.6rem;
+	   }
+	   .search-input {
+		 padding: 8px 12px;
+		 border-radius: 6px;
+		 border: 1px solid var(--light-bg);
+		 font-family: inherit;
+		 width: 180px; 
+	   transition: all 0.2s ease-in-out;
+	   }
+       main.container {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 0 1rem;
     }
-    body { font-family:'Poppins',sans-serif; background:var(--light-bg); color:var(--text-dark); margin:0; }
-    header.header { background:var(--green); color:var(--white); padding:1rem 2rem; }
-    .header-inner { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; }
-    .brand { display:flex; align-items:center; gap:0.6rem; }
-    .crest { background:var(--white); color:var(--green); font-weight:bold; font-size:1.2rem; border-radius:50%; width:32px; height:32px; display:flex; align-items:center; justify-content:center; }
-    nav.site-nav a { color:var(--white); margin:0 0.6rem; text-decoration:none; font-weight:500; }
-    nav.site-nav a.active { border-bottom:2px solid var(--white); padding-bottom:2px; }
-    main.container { max-width:1100px; margin:2rem auto; padding:0 1rem; }
-    .card { background:var(--white); padding:1.5rem; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.08); margin-bottom:1.5rem; }
-    .card a { color:var(--green-dark); font-weight:600; text-decoration:none; }
-    .card a:hover { text-decoration:underline; }
-    .card small { color:var(--muted); font-size:0.85rem; }
-    footer.footer { background:var(--green-dark); color:var(--white); padding:2rem 1rem; margin-top:3rem; }
-    footer.footer div { display:flex; justify-content:space-between; align-items:center; max-width:1100px; margin:0 auto; }
-  </style>
+ .card {
+      background: var(--white);
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1); 
+  margin-top: 2rem;
+    }  
+ .content-layout { display: flex; gap: 2rem; margin-top: 2rem; }
+ .main-results { flex: 3; min-width: 0; }
+ .sidebar { flex: 1; min-width: 250px; }
+ .sidebar .card { margin-top: 0; padding: 1.2rem; }
+     .filter-group { margin-bottom: 1rem; }
+ .filter-group label { display: block; font-weight: 600; margin-bottom: 0.4rem; font-size: 0.9rem; color: var(--text-dark); }
+ .filter-group select { 
+ width: 100%; padding: 10px 12px; border-radius: 6px; border: 1px solid var(--border-light);
+ background-color: var(--white); font-family: inherit; font-size: 0.95rem;
+ appearance: none;
+ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%236b7280'%3E%3Cpath fill-rule='evenodd' d='M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.27a.75.75 0 01.02-1.06z' clip-rule='evenodd'/%3E%3C/svg%3E");
+ background-repeat: no-repeat; background-position: right 0.75rem center; background-size: 1.25em 1.25em;
+ transition: border-color 0.2s ease;
+ }
+    .filter-group select:focus { border-color: var(--blue-accent); outline: none; }
+    .summary-card {
+        border-left: 4px solid var(--green); 
+        padding: 1.2rem 1.5rem;
+    }
+    .summary-card p {
+        margin: 0.4rem 0;
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.9rem;
+    }
+    .summary-card .gpa-highlight {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--green);
+        margin-top: 1rem;
+        padding-top: 0.5rem;
+        border-top: 1px solid var(--border-light);
+        display: flex;
+        justify-content: space-between;
+    }
+
+ .results-table-wrapper {
+        margin-top: 1.5rem;
+ overflow-x: auto; 
+ border-radius: 10px;
+ border: 1px solid var(--border-light);
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+ }
+ .results-table {
+ width: 100%;
+ border-collapse: separate;
+ min-width: 650px; 
+ }
+ .results-table th, .results-table td {
+ padding: 14px 18px;
+ text-align: left;
+ border-bottom: 1px solid var(--border-light);
+ font-size: 0.95rem; }
+ .results-table th {
+ background-color: var(--light-bg);
+ color: var(--muted);
+ font-weight: 600;
+ text-transform: uppercase;
+ font-size: 0.75rem;
+ }
+ .results-table tr:last-child td {
+ border-bottom: none;
+ }
+    .results-table td:nth-child(4),
+    .results-table td:nth-child(5) {
+        text-align: center;
+    }
+    .results-table th:nth-child(4), 
+    .results-table th:nth-child(5) { 
+        text-align: center;
+        width: 100px;
+    }
+    .grade-pill {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        font-weight: 700;
+        font-size: 0.9rem;
+        color: var(--white);
+    }
+    .grade-A { background-color: var(--green); }
+    .grade-B { background-color: #22c55e; } 
+    .grade-C { background-color: #f59e0b; } 
+    .grade-D { background-color: #f97316; color: var(--text-dark); }
+    .grade-E { background-color: #ef4444; }
+    .grade-F { background-color: var(--red-fail); }
+        .download-btn {
+        font-weight: 700; 
+        padding: 0.75rem 1.75rem; 
+        background-color: var(--blue-accent); 
+        color: var(--green) !important;
+        border: none; 
+        border-radius: 8px; 
+        display: inline-block; 
+        cursor: pointer; 
+        transition: background-color 0.2s ease, transform 0.1s ease; 
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-size: 0.9rem;
+    }
+    .download-btn:hover {
+        background-color: #1dd87e;
+        transform: translateY(-1px);
+        box-shadow: 0 6px 8px -1px rgb(0 0 0 / 0.1), 0 3px 5px -2px rgb(0 0 0 / 0.1);
+    }
+    footer.footer {
+      background: var(--green-dark);
+      color: var(--white);
+      padding: 2rem 1rem;
+      margin-top: 3rem;
+    }
+    footer.footer div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+	@media (max-width: 768px) {
+        
+        .site-nav {
+            width: 100%;
+            justify-content: flex-start;
+        }
+       
+        .search-input {
+            width: 100%;
+        }
+                .content-layout {
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .sidebar {
+            order: -1; 
+            min-width: 100%;
+        }
+        .announcement-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .announcement-meta {
+            text-align: left;
+            margin-top: 0.25rem;
+        }
+    }
+ </style>
 </head>
 <body>
-  <header class="header">
-    <div class="header-inner">
-      <div class="brand">
-        <div class="crest">F</div>
-        <div>
-          <strong>FUTO</strong>
-          <div style="font-size:.82rem;color:rgba(255,255,255,.9)">Computer Science Dept</div>
-        </div>
-      </div>
-      <nav class="site-nav">
-        <a href="index.html">Home</a>
-        <a href="announcements.html">Announcements</a>
-        <a href="events.html">Events</a>
-        <a href="results.html" class="active">Results</a>
-        <a href="contact.html">Contact</a>
-        <a href="admin.html">Admin</a>
-      </nav>
-    </div>
-  </header>
-
-  <main class="container">
-    <h2>Published Results</h2>
-    <div id="results-list"></div>
-  </main>
-
-  <footer class="footer">
-    <div>
-      <div>© 2025 FUTO</div>
-      <div>Contact: csdept@futo.edu.ng</div>
-    </div>
-  </footer>
-
-  <script>
-    fetch("https://GROUP17.onrender.com/user/results")
-      .then(res => res.json())
-      .then(data => {
-        const container = document.getElementById("results-list");
-        container.innerHTML = data.map(r => `
-          <div class="card">
-            <a href="${r.file_path}" target="_blank">${r.filename}</a><br>
-            <small>Uploaded: ${new Date(r.uploaded_at).toLocaleString()}</small>
+    <header class="header">
+        <div class="header-inner">
+          <div class="brand">
+            <img src="futo-logo.png" alt="FUTO Logo" style="height: 32px; width: 32px; border-radius: 50%;"> 
+            <div>
+              <strong>FUTO</strong>
+              <div style="font-size:.82rem;color:rgba(255,255,255,.9)">Computer Science Dept</div>
+            </div>
           </div>
-        `).join("");
-      })
-      .catch(err => console.error("Error fetching results:", err));
-  </script>
-</body>
-</html>
+          <nav id="siteNav" class="site-nav">
+            <a href="index.html">Home</a>
+            <a href="announcements.html">Announcements</a>
+            <a href="events.html">Events</a>
+            <a href="results.html" class="active">Results</a>
+            <a href="contact.html">Contact</a>
+            <a href="admin.html">Admin</a>
+          </nav>
+          <div class="header-utility">
+            <input class="search-input" placeholder="Search site...">
+            <button id="navToggle" class="btn" style="display:none">Menu</button>
+          </div>
+        </div>
+      </header>
+ <main class="container">
+ <h2>Academic Records Dashboard 🎓</h2>
+ <p style="color:var(--muted)">Official course results for the current session. Please contact the Head of Department (HOD) for clarification on scores or grades.</p>
+    <div class="content-layout">
+                <div class="sidebar">
+            <div class="card">
+                <h3>Filter Records</h3>
+                <form>
+                    <div class="filter-group">
+                        <label for="level">Academic Level</label>
+                        <select id="level" name="level">
+                            <option value="100">100 Level</option>
+                            <option value="200">200 Level</option>
+                            <option value="300" selected>300 Level</option>
+                            <option value="400">400 Level</option>
+                            <option value="500">500 Level</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="session">Session</label>
+                        <select id="session" name="session">
+                            <option value="2024/2025" selected>2024/2025</option>
+                            <option value="2023/2024">2023/2024</option>
+                            <option value="2022/2023">2022/2023</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="semester">Semester</label>
+                        <select id="semester" name="semester">
+                            <option value="First" selected>Harmattan Semester</option>
+                            <option value="Second">Rain Semester</option>
+                        </select>
+                    </div>
+                    
+                    <button style="display: block; width: 100%; padding: 0.75rem; margin-top: 1.5rem; background-color: var(--blue-accent); color: var(--white); border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: background-color 0.2s ease;">
+                        View Results
+                    </button>
+                </form>
+            </div>
+            
+            <div class="card summary-card" style="margin-top: 1.5rem;">
+                <h3>Academic Summary</h3>
+                <p><span>Credit Units Registered:</span> <strong style="color: var(--text-dark);">24</strong></p>
+                <p><span>Total Grade Points:</span> <strong style="color: var(--text-dark);">93</strong></p>
+                <p style="color: var(--muted); font-size: 0.9rem;"><span>Cumulative GPA (CGPA):</span> <strong style="color: var(--text-dark);">4.15</strong></p>
+                
+                <div class="gpa-highlight">
+                    <span>Semester GPA:</span>
+                    <span style="font-size: 1.5rem;">3.88</span>
+                </div>
+            </div>
+        </div>
+        <div class="main-results">
+            <h3 style="margin-top: 0.5rem;">300 Level Rain Semester Results (2024/2025)</h3>
+            <div class="results-table-wrapper">
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>Course Code</th>
+                            <th>Course Title</th>
+                            <th>Units</th>
+                            <th>Score</th>
+                            <th>Grade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CSC 302</td>
+                            <td>Computer Programming I</td>
+                            <td>3</td>
+                            <td>78</td>
+                            <td><span class="grade-pill grade-A">A</span></td>
+                        </tr>
+                        <tr>
+                            <td>CSC 306</td>
+                            <td>Data Structures and Algorithms</td>
+                            <td>3</td>
+                            <td>65</td>
+                            <td><span class="grade-pill grade-B">B</span></td>
+                        </tr>
+                        <tr>
+                            <td>CIT 302</td>
+                            <td>Machine Programming</td>
+                            <td>2</td>
+                            <td>81</td>
+                            <td><span class="grade-pill grade-A">A</span></td>
+                        </tr>
+                        <tr>
+                            <td>CIT 304</td>
+                            <td>Computer Hardware</td>
+                            <td>3</td>
+                            <td>54</td>
+                            <td><span class="grade-pill grade-C">C</span></td>
+                        </tr>
+                        <tr>
+                            <td>CSC 308</td>
+                            <td>Operating Systems I</td>
+                            <td>3</td>
+                            <td>42</td>
+                            <td><span class="grade-pill grade-E">E</span></td>
+                        </tr>
+                        <tr>
+                            <td>CIT 306</td>
+                            <td>Fundamentals Of Programming</td>
+                            <td>3</td>
+                            <td>70</td>
+                            <td><span class="grade-pill grade-A">A</span></td>
+                        </tr>
+                        <tr>
+                            <td>ENS 302</td>
+                            <td>Entreprenuership Training</td>
+                            <td>3</td>
+                            <td>68</td>
+                            <td><span class="grade-pill grade-B">B</span></td>
+                        </tr>
+                        <tr>
+                            <td>CSC 310</td>
+                            <td>Introduction to Software Engineering</td>
+                            <td>4</td>
+                            <td>72</td>
+                            <td><span class="grade-pill grade-A">A</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="#" class="download-btn">
+                    Download Official Statement of Results (PDF) ⬇
+                </a>
+            </div>
+        </div>
+
+    </div>
+ </main>
+  
+ <footer class="footer" style="background: #096735;">
+    <div>
+    <div>© 2025 FUTO</div>
+    <div>Contact: csdept@futo.edu.ng</div>
+    </div>
+    </footer>
+   </body>
+   </html>

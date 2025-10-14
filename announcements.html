@@ -4,7 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>FUTO • Announcements</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
       --green: #0b7a3f;
@@ -14,26 +16,150 @@
       --text-dark: #333333;
       --muted: #6b7280;
     }
-    body { font-family:'Poppins',sans-serif; background:var(--light-bg); color:var(--text-dark); margin:0; }
-    header.header { background:var(--green); color:var(--white); padding:1rem 2rem; }
-    .header-inner { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; }
-    .brand { display:flex; align-items:center; gap:0.6rem; }
-    .crest { background:var(--white); color:var(--green); font-weight:bold; font-size:1.2rem; border-radius:50%; width:32px; height:32px; display:flex; align-items:center; justify-content:center; }
-    nav.site-nav a { color:var(--white); margin:0 0.6rem; text-decoration:none; font-weight:500; }
-    nav.site-nav a.active { border-bottom:2px solid var(--white); padding-bottom:2px; }
-    main.container { max-width:1100px; margin:2rem auto; padding:0 1rem; }
-    .card { background:var(--white); padding:1.5rem; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.08); margin-bottom:1.5rem; }
-    .card h3 { margin-top:0; color:var(--green-dark); }
-    .card small { color:var(--muted); font-size:0.85rem; }
-    footer.footer { background:var(--green-dark); color:var(--white); padding:2rem 1rem; margin-top:3rem; }
-    footer.footer div { display:flex; justify-content:space-between; align-items:center; max-width:1100px; margin:0 auto; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--light-bg);
+      color: var(--text-dark);
+      margin: 0;
+    }
+    header.header {
+      background: var(--green);
+      color: var(--white);
+      padding: 1rem 2rem;
+    }
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    nav.site-nav a {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+    nav.site-nav a.active {
+      border-bottom: 2px solid var(--white);
+      padding-bottom: 2px;
+    }
+    main.container {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    .content-layout {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .main-announcements {
+      flex: 3;
+      min-width: 0;
+    }
+    .sidebar {
+      flex: 1;
+      min-width: 200px;
+    }
+    .announcement-item {
+      background: var(--white);
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      margin-bottom: 1.5rem;
+      border-left: 5px solid var(--green);
+      transition: box-shadow 0.3s ease;
+    }
+    .announcement-item:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .announcement-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.5rem;
+    }
+    .announcement-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 0;
+      color: var(--text-dark);
+    }
+    .announcement-meta {
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-align: right;
+    }
+    .announcement-tag {
+      display: inline-block;
+      background-color: #eaf7ee;
+      color: var(--green-dark);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-right: 0.5rem;
+    }
+    .sidebar .card {
+      background: var(--white);
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      margin-bottom: 1.5rem;
+    }
+    .filter-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .filter-list li a {
+      display: block;
+      padding: 0.5rem 0;
+      color: var(--text-dark);
+      text-decoration: none;
+      border-bottom: 1px solid var(--light-bg);
+      transition: color 0.2s ease;
+    }
+    .filter-list li a:hover {
+      color: var(--green);
+    }
+    footer.footer {
+      background: var(--green-dark);
+      color: var(--white);
+      padding: 2rem 1rem;
+      margin-top: 3rem;
+    }
+    footer.footer div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    @media (max-width: 768px) {
+      .content-layout { flex-direction: column; }
+      .sidebar { order: -1; min-width: 100%; }
+      .announcement-header { flex-direction: column; align-items: flex-start; }
+      .announcement-meta { text-align: left; margin-top: 0.25rem; }
+    }
   </style>
 </head>
 <body>
   <header class="header">
     <div class="header-inner">
       <div class="brand">
-        <div class="crest">F</div>
+        <img src="Federal-University-of-Technology-Owerri-logo (1).jpg" alt="FUTO Logo" style="height:32px;width:32px;border-radius:50%;">
         <div>
           <strong>FUTO</strong>
           <div style="font-size:.82rem;color:rgba(255,255,255,.9)">Computer Science Dept</div>
@@ -51,8 +177,33 @@
   </header>
 
   <main class="container">
-    <h2>Department Announcements</h2>
-    <div id="announcement-list"></div>
+    <h2>Departmental Announcements 📢</h2>
+    <p style="color:var(--muted)">Stay up-to-date with the latest academic, administrative, and general notices.</p>
+    <div class="content-layout">
+      <div class="main-announcements" id="announcement-list">
+        Loading announcements...
+      </div>
+      <div class="sidebar">
+        <div class="card">
+          <h3>Filter by Category</h3>
+          <ul class="filter-list">
+            <li><a href="#">All Announcements</a></li>
+            <li><a href="#">Academic</a></li>
+            <li><a href="#">Administrative</a></li>
+            <li><a href="#">Exams & Results</a></li>
+            <li><a href="#">General Notices</a></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Archive</h3>
+          <ul class="filter-list">
+            <li><a href="#">October 2025</a></li>
+            <li><a href="#">September 2025</a></li>
+            <li><a href="#">August 2025</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </main>
 
   <footer class="footer">
@@ -63,19 +214,32 @@
   </footer>
 
   <script>
-    fetch("https://GROUP17.onrender.com/user/announcements")
+    fetch("https://group17.onrender.com")
       .then(res => res.json())
       .then(data => {
         const container = document.getElementById("announcement-list");
+        if (!data.length) {
+          container.innerHTML = "<p>No announcements available at the moment.</p>";
+          return;
+        }
         container.innerHTML = data.map(a => `
-          <div class="card">
-            <h3>${a.title}</h3>
+          <div class="announcement-item">
+            <div class="announcement-header">
+              <h3 class="announcement-title">${a.title}</h3>
+              <div class="announcement-meta">
+                <span class="announcement-tag">${a.category || "General"}</span>
+                Published: ${new Date(a.created_at).toLocaleDateString()}
+              </div>
+            </div>
             <p>${a.message}</p>
-            <small>Posted: ${new Date(a.created_at).toLocaleString()}</small>
           </div>
         `).join("");
       })
-      .catch(err => console.error("Error fetching announcements:", err));
+      .catch(err => {
+        console.error("Error fetching announcements:", err);
+        document.getElementById("announcement-list").innerHTML =
+          "<p style='color:red'>Failed to load announcements. Please try again later.</p>";
+      });
   </script>
 </body>
 </html>
