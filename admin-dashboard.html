@@ -30,18 +30,19 @@
       right: 1rem;
       top: 1rem;
       background:#e63946;
-      padding:6px 12px;
-      border-radius:6px;
+      padding:4px 10px;
+      border-radius:4px;
       border:none;
       cursor:pointer;
       color:white;
+      font-size: 0.8rem;
       font-weight:600;
     }
     main {
       flex: 1;
       padding: 2rem;
       width: 100%;
-      max-width: 800px;
+      max-width: 900px;
     }
     .card {
       background: white;
@@ -66,11 +67,15 @@
     }
     button:hover { background: #096735; }
     .msg { margin-top: 10px; font-weight: 600; }
+    ul { padding-left: 1.2rem; }
+    li { margin-bottom: 0.5rem; }
+    a { color: #0b7a3f; font-weight: 600; text-decoration: none; }
+    a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
   <header>
-    <h1>Welcome to FUTO Admin Dashboard</h1>
+    <h1>FUTO Admin Dashboard</h1>
     <button id="logoutBtn">Logout</button>
   </header>
 
@@ -93,6 +98,16 @@
       </form>
       <div id="resultMsg" class="msg"></div>
     </div>
+
+    <div class="card">
+      <h3>📋 Existing Announcements</h3>
+      <ul id="announcementList"><li>Loading...</li></ul>
+    </div>
+
+    <div class="card">
+      <h3>📂 Uploaded Results</h3>
+      <ul id="resultList"><li>Loading...</li></ul>
+    </div>
   </main>
 
   <footer>
@@ -100,7 +115,7 @@
   </footer>
 
   <script>
-    const API_BASE = "https://group17.onrender.com";
+    const API_BASE = "https://group171.onrender.com";
     const token = localStorage.getItem("adminToken");
 
     // 🔐 Redirect if not logged in
@@ -146,6 +161,7 @@
           msgBox.textContent = data.message || "✅ Announcement posted!";
           msgBox.style.color = "green";
           e.target.reset();
+          loadAnnouncements(); // refresh list
         } else {
           msgBox.textContent = "❌ " + (data.message || "Failed to post.");
           msgBox.style.color = "red";
@@ -188,6 +204,7 @@
           msg.textContent = data.message || "✅ Result uploaded successfully!";
           msg.style.color = "green";
           e.target.reset();
+          loadResults(); // refresh list
         } else {
           msg.textContent = "❌ " + (data.message || "Upload failed.");
           msg.style.color = "red";
@@ -198,6 +215,63 @@
         msg.style.color = "red";
       }
     });
+
+    // 📋 Load Announcements
+    async function loadAnnouncements() {
+      const list = document.getElementById("announcementList");
+      list.innerHTML = "<li>Loading...</li>";
+      try {
+        const res = await fetch(`${API_BASE}/api/announcements`, {
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+        const data = await res.json();
+        list.innerHTML = "";
+        if (data.success && data.announcements && data.announcements.length) {
+          data.announcements.forEach(a => {
+            const li = document.createElement("li");
+            li.textContent = `${a.title}: ${a.message}`;
+            list.appendChild(li);
+          });
+        } else {
+          list.innerHTML = "<li>No announcements yet.</li>";
+        }
+      } catch (err) {
+        console.error(err);
+        list.innerHTML = "<li>❌ Failed to load announcements.</li>";
+      }
+    }
+
+    // 📂 Load Results
+    async function loadResults() {
+      const list = document.getElementById("resultList");
+      list.innerHTML = "<li>Loading...</li>";
+      try {
+        const res = await fetch(`${API_BASE}/api/results/pdfs`, {
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+        const data = await res.json();
+        list.innerHTML = "";
+        if (data.success && data.results && data.results.length) {
+          data.results.forEach(r => {
+            const li = document.createElement("li");
+            const link = document.createElement("a");
+            link.href = `${API_BASE}/uploads/${r.filename}`;
+            link.target = "_blank";
+            link.textContent = r.filename;
+            list.appendChild(li);
+          });
+        } else {
+          list.innerHTML = "<li>No results uploaded yet.</li>";
+        }
+      } catch (err) {
+        console.error(err);
+        list.innerHTML = "<li>❌ Failed to load results.</li>";
+      }
+    }
+
+    // 🔄 Load data on page load
+    loadAnnouncements();
+    loadResults();
   </script>
 </body>
 </html>
