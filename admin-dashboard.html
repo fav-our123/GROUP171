@@ -101,74 +101,88 @@
   </div>
 
   <script>
-    const baseUrl = "https://group17.onrender.com";
+  const baseUrl = "https://group17.onrender.com";
 
-    // === Announcements ===
-    document.getElementById("announcementForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const title = document.getElementById("title").value.trim();
-      const message = document.getElementById("message").value.trim();
+  // === Post Announcement ===
+  document.getElementById("announcementForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const title = document.getElementById("title").value.trim();
+    const message = document.getElementById("message").value.trim();
 
-      try {
-        const res = await fetch($,{baseUrl}/api/announcements, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ title, message }),
-        });
+    try {
+      const res = await fetch(`${baseUrl}/api/announcements`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title, message }),
+      });
 
-        const data = await res.json();
-        alert("✅ Announcement posted successfully!");
-        document.getElementById("announcementForm").reset();
-        loadAnnouncements();
-      } catch (err) {
-        alert("❌ Error posting announcement.");
-        console.error(err);
-      }
-    });
+      if (!res.ok) throw new Error("Failed to post announcement");
 
-    async function loadAnnouncements() {
-      try {
-        const res = await fetch($,{baseUrl}/api/announcements);
-        const data = await res.json();
-        const container = document.getElementById("announcementList");
-        container.innerHTML = data.map(a => `
-          <div class="announcement">
-            <h4>${a.title}</h4>
-            <p>${a.message}</p>
-            <small>${new Date(a.created_at).toLocaleString()}</small>
-          </div>
-        `).join("");
-      } catch (err) {
-        console.error("Error loading announcements:", err);
-      }
+      alert("✅ Announcement posted successfully!");
+      document.getElementById("announcementForm").reset();
+      loadAnnouncements();
+    } catch (err) {
+      alert("❌ Error posting announcement.");
+      console.error(err);
     }
+  });
 
-    // === Upload Results ===
-    document.getElementById("uploadForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const fileInput = document.getElementById("file");
-      const formData = new FormData();
-      formData.append("file", fileInput.files[0]);
+  // === Load Announcements ===
+  async function loadAnnouncements() {
+    try {
+      const res = await fetch(`${baseUrl}/api/announcements`);
+      if (!res.ok) throw new Error("Failed to load announcements");
+      const data = await res.json();
 
-      try {
-        const res = await fetch($,{baseUrl}/api/results/pdf, { method: "POST", body: formData });
-        const data = await res.json();
-        alert("✅ Result uploaded successfully!");
-        fileInput.value = "";
-      } catch (err) {
-        alert("❌ Error uploading file.");
-        console.error(err);
+      const container = document.getElementById("announcementList");
+      if (data.length === 0) {
+        container.innerHTML = "<p>No announcements yet.</p>";
+        return;
       }
-    });
 
-    // === Logout ===
-    function logout() {
-      alert("Logging out...");
-      window.location.href = "/login.html";
+      container.innerHTML = data.map(a => `
+        <div class="announcement">
+          <h4>${a.title}</h4>
+          <p>${a.message}</p>
+          <small>${new Date(a.created_at).toLocaleString()}</small>
+        </div>
+      `).join("");
+    } catch (err) {
+      console.error("Error loading announcements:", err);
     }
+  }
 
-    // Load announcements on start
-    loadAnnouncements();
-  </script>
+  // === Upload Results ===
+  document.getElementById("uploadForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const fileInput = document.getElementById("file");
+    const formData = new FormData();
+    formData.append("file", fileInput.files[0]);
+
+    try {
+      const res = await fetch(`${baseUrl}/api/results/pdf`, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!res.ok) throw new Error("Failed to upload file");
+
+      alert("✅ Result uploaded successfully!");
+      fileInput.value = "";
+    } catch (err) {
+      alert("❌ Error uploading file.");
+      console.error(err);
+    }
+  });
+
+  // === Logout ===
+  function logout() {
+    alert("Logging out...");
+    window.location.href = "/login.html";
+  }
+
+  // Load announcements on start
+  loadAnnouncements();
+</script>
 </body>
 </html>
