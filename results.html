@@ -124,42 +124,72 @@ rel="stylesheet"
 
   
   <script>
-    const API_BASE = "https://group17.onrender.com";
+  const API_BASE = "https://group17.onrender.com";
 
-    async function loadDbResults() {
-      const tableBody = document.querySelector("#resultsTable tbody");
+  async function loadResults() {
+    const container = document.getElementById("resultsContainer");
+    try {
+      const res = await fetch(`${API_BASE}/api/results`);
+      const data = await res.json();
 
-      try {
-        const res = await fetch(`${API_BASE}/api/results/pdfs`);
-        const data = await res.json();
+      if (res.ok && Array.isArray(data) && data.length > 0) {
+        container.innerHTML = "";
+        data.forEach(result => {
+          const div = document.createElement("div");
+          div.className = "result-item";
+          div.innerHTML = `
+            <div style="background:#fff;border-left:4px solid #0b7a3f;padding:1rem;margin-bottom:1rem;border-radius:8px;">
+              <strong>${result.filename}</strong><br>
+              Uploaded: ${new Date(result.uploaded_at).toLocaleDateString()}<br>
+              <a href="${API_BASE}${result.path}" target="_blank" style="color:#0b7a3f;">View Result PDF</a>
+            </div>
+          `;
+          container.appendChild(div);
+        });
+      } else {
+        container.innerHTML = "<p>No results available yet.</p>";
+      }<script>
+  const API_BASE = "https://group17.onrender.com";
 
-        if (res.ok && data.success && data.results.length) {
-          data.results.forEach(r => {
-            const row = document.createElement("tr");
-            row.innerHTML = `
-              <td colspan="5">
-                <a href="${API_BASE}/uploads/${r.filename}" target="_blank" style="color: var(--green); font-weight:600; text-decoration:none;">
-                  📄 ${r.filename}
-                </a>
-              </td>
-            `;
-            tableBody.appendChild(row);
-          });
-        } else {
-          const row = document.createElement("tr");
-          row.innerHTML = `<td colspan="5" style="text-align:center; color: var(--muted);">No additional results found in database.</td>`;
-          tableBody.appendChild(row);
-        }
-      } catch (err) {
-        console.error("Error loading results:", err);
-        const row = document.createElement("tr");
-        row.innerHTML = `<td colspan="5" style="text-align:center; color:red;">❌ Could not load results from server.</td>`;
-        tableBody.appendChild(row);
+  async function loadResults() {
+    const container = document.getElementById("resultsContainer");
+    try {
+      const res = await fetch(`${API_BASE}/api/results`);
+      const data = await res.json();
+
+      if (res.ok && Array.isArray(data) && data.length > 0) {
+        container.innerHTML = "";
+        data.forEach(result => {
+          const div = document.createElement("div");
+          div.className = "result-item";
+          div.innerHTML = `
+            <div style="background:#fff;border-left:4px solid #0b7a3f;padding:1rem;margin-bottom:1rem;border-radius:8px;">
+              <strong>${result.filename}</strong><br>
+              Uploaded: ${new Date(result.uploaded_at).toLocaleDateString()}<br>
+              <a href="${API_BASE}${result.path}" target="_blank" style="color:#0b7a3f;">View Result PDF</a>
+            </div>
+          `;
+          container.appendChild(div);
+        });
+      } else {
+        container.innerHTML = "<p>No results available yet.</p>";
       }
+    } catch (err) {
+      console.error("Error loading results:", err);
+      container.innerHTML = "<p>Failed to load results.</p>";
     }
+  }
 
-    // Load DB results after static ones
-    loadDbResults();
-  </script>
+  loadResults();
+</script>
+    } catch (err) {
+      console.error("Error loading results:", err);
+      container.innerHTML = "<p>Failed to load results.</p>";
+    }
+  }
+
+  loadResults();
+    </script>
+
 </body>
 </html>
