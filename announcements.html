@@ -122,39 +122,38 @@
 
   <!-- 🔽 Added script to fetch DB announcements -->
   <script>
-    const API_BASE = "https://group17.onrender.com";
+  const API_BASE = "https://group17.onrender.com";
 
-    async function loadDbAnnouncements() {
-      const container = document.getElementById("announcementContainer");
+  async function loadDbAnnouncements() {
+    const container = document.getElementById("announcementContainer");
 
-      try {
-        const res = await fetch(`${API_BASE}/api/announcements`);
-        const data = await res.json();
+    try {
+      const res = await fetch(`${API_BASE}/api/announcements`);
+      const data = await res.json();
 
-        if (res.ok && data.success && data.announcements.length) {
-          data.announcements.forEach(a => {
-            const item = document.createElement("div");
-            item.className = "announcement-item";
-            item.innerHTML = `
-              <div class="announcement-header">
-                <h3 class="announcement-title">${a.title}</h3>
-                <div class="announcement-meta">
-                  <span class="announcement-tag">Database</span>
-                  Published: ${new Date(a.created_at).toLocaleDateString()}
-                </div>
+      if (res.ok && Array.isArray(data) && data.length > 0) {
+        data.forEach(a => {
+          const item = document.createElement("div");
+          item.className = "announcement-item";
+          item.innerHTML = `
+            <div class="announcement-header">
+              <h3 class="announcement-title">${a.title}</h3>
+              <div class="announcement-meta">
+                <span class="announcement-tag" style="background-color:#eaf7ee;color:#0b7a3f;">New</span>
+                Published: ${new Date(a.created_at).toLocaleDateString()}
               </div>
-              <p>${a.message}</p>
-            `;
-            container.appendChild(item);
-          });
-        }
-      } catch (err) {
-        console.error("Error loading announcements:", err);
+            </div>
+            <p>${a.body}</p>
+          `;
+          container.prepend(item); // adds new ones first
+        });
       }
+    } catch (err) {
+      console.error("Error loading announcements:", err);
     }
+  }
 
-    // Load DB announcements after static ones
-    loadDbAnnouncements();
-  </script>
+  loadDbAnnouncements();
+</script>
 </body>
 </html>
